@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B05793B22443992700184C60 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05793B12443992700184C60 /* Colors.swift */; };
+		B05793B62443A2C600184C60 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05793B52443A2C600184C60 /* Extensions.swift */; };
 		B063DDEB243F1BD5009E38D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B063DDEA243F1BD5009E38D0 /* AppDelegate.swift */; };
 		B063DDED243F1BD5009E38D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B063DDEC243F1BD5009E38D0 /* SceneDelegate.swift */; };
 		B063DDEF243F1BD5009E38D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B063DDEE243F1BD5009E38D0 /* ViewController.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B05793B12443992700184C60 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		B05793B52443A2C600184C60 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B063DDE7243F1BD5009E38D0 /* Color Selector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Color Selector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B063DDEA243F1BD5009E38D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B063DDEC243F1BD5009E38D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 				B063DDEA243F1BD5009E38D0 /* AppDelegate.swift */,
 				B063DDEC243F1BD5009E38D0 /* SceneDelegate.swift */,
 				B063DDEE243F1BD5009E38D0 /* ViewController.swift */,
+				B05793B12443992700184C60 /* Colors.swift */,
+				B05793B52443A2C600184C60 /* Extensions.swift */,
 				B063DDF0243F1BD5009E38D0 /* Main.storyboard */,
 				B063DDF3243F1BD7009E38D0 /* Assets.xcassets */,
 				B063DDF5243F1BD7009E38D0 /* LaunchScreen.storyboard */,
@@ -139,6 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B063DDEF243F1BD5009E38D0 /* ViewController.swift in Sources */,
+				B05793B62443A2C600184C60 /* Extensions.swift in Sources */,
+				B05793B22443992700184C60 /* Colors.swift in Sources */,
 				B063DDEB243F1BD5009E38D0 /* AppDelegate.swift in Sources */,
 				B063DDED243F1BD5009E38D0 /* SceneDelegate.swift in Sources */,
 			);
@@ -287,7 +295,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FRR54V3739;
 				INFOPLIST_FILE = "Color Selector/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,7 +314,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FRR54V3739;
 				INFOPLIST_FILE = "Color Selector/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

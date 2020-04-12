@@ -10,22 +10,13 @@ import UIKit
 
 
 class ViewController: UIViewController {
-
-    let screen = UIScreen.main.bounds
-    var basketForBubbles = [UIView]()
-    var colors = [
-        UIColor.red,
-        UIColor.blue,
-        UIColor.purple,
-        UIColor.green,
-        UIColor.yellow,
-        UIColor.orange,
-        UIColor.cyan,
-        UIColor.magenta,
-        UIColor.gray,
-        UIColor.brown
-    ]
     
+    
+    // Variables
+    let screen = UIScreen.main.bounds
+    var basketOfBubbles = [UIView]()
+   
+//MARK: UI elements
     let selectButton: UIButton = {
         let bttn = UIButton()
         
@@ -51,7 +42,7 @@ class ViewController: UIViewController {
     }()
     
     
-    let bubble: UIView = {
+    let superBubble: UIView = {
         let bubble = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 20, height: 20)))
         let screen = UIScreen.main.bounds
         bubble.center =
@@ -59,41 +50,40 @@ class ViewController: UIViewController {
         bubble.layer.cornerRadius = 10
         return bubble
     }()
-    
+
+//MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
   
         
-        
-       getStorage()
+       getBubbles()
        setView()
     
     }
-
-    func getStorage() {
+ 
+    //filling of basket
+    func getBubbles() {
        
-        basketForBubbles = bubble.clones(colors.count)
+        basketOfBubbles = superBubble.clones(colors.count)
         
-        for (j,i) in basketForBubbles.enumerated() {
-            i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapOnBubble(sender: ))))
-            i.backgroundColor = colors[j]
+        for (index,bubble) in basketOfBubbles.enumerated() {
+        bubble.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapOnBubble(sender: ))))
+        bubble.backgroundColor = colors[index]
         }
         
-     
     }
     
-    
+//MARK: Setup UI
     func setView() {
         
         
         view.layer.addSublayer(shadowLayer)
-        
         view.addSubview(selectButton)
-        basketForBubbles.forEach {
+        
+        basketOfBubbles.forEach {
             view.addSubview($0)
         }
-        
         
         selectButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         selectButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive = true
@@ -102,15 +92,16 @@ class ViewController: UIViewController {
     }
     
     
+//MARK: Functions
     @objc func tapOnBubble(sender: UITapGestureRecognizer) {
         
         guard let bubble = sender.view else { return }
         
         view.backgroundColor = bubble.backgroundColor
 
-        self.basketForBubbles.forEach { $0.transform = .identity }
-        self.basketForBubbles.forEach {
-            $0.center = self.bubble.center
+        self.basketOfBubbles.forEach { $0.transform = .identity }
+        self.basketOfBubbles.forEach {
+            $0.center = self.superBubble.center
         }
         self.selectButton.isEnabled = true
         self.selectButton.alpha = 1
@@ -118,49 +109,29 @@ class ViewController: UIViewController {
     }
     
     
-    func cent(num: Int) -> CGPoint {
-        
-        let mainOffset = bubble.frame.size.width * 5
-        let count = Int(screen.width / mainOffset)
-        var marg = screen.width - mainOffset * CGFloat(count)
-        let offSetY = CGFloat.random(in: -15...15)
-        let offSetX = CGFloat.random(in: -10...10)
-        let numberOfWholeRows = num / (count + 1)
-        let r = num - numberOfWholeRows * (count + 1)
-        let rest = colors.count % (count + 1)
-       
-        
-        if num > colors.count - rest - 1 {
-            marg = screen.width - mainOffset * CGFloat(rest - 1)
-        }
-        
-        let point = CGPoint(x: marg/2 + CGFloat(r) * mainOffset + offSetX, y: screen.height - CGFloat(numberOfWholeRows) * 100 + offSetY - 100)
-      
-        return point
-    }
     
     
     @objc func createBubbleField() {
        
-        let anim = CABasicAnimation(keyPath: "opacity")
-        anim.fromValue = 0
-        anim.toValue = 0.8
-        anim.duration = 0.8
-        shadowLayer.add(anim, forKey: nil)
+        let shadow = CABasicAnimation(keyPath: "opacity")
+        shadow.fromValue = 0
+        shadow.toValue = 0.8
+        shadow.duration = 0.8
+        shadowLayer.add(shadow, forKey: nil)
         
         UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseIn], animations: {
             
             self.selectButton.alpha = 0.2
 
-            for (i,bb) in self.basketForBubbles.enumerated() {
-                bb.center = self.cent(num: i)
+            for (index,bubble) in self.basketOfBubbles.enumerated() {
+                bubble.center = self.newBubbleCenter(tag: index)
             }
             
                 }) { tr in
                     UIView.animate(withDuration: 0.5, delay: 0.1, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.0, options: [], animations: {
                         
                         self.shadowLayer.opacity = 0.8
-                        self.basketForBubbles.forEach {
+                        self.basketOfBubbles.forEach {
                             $0.transform = CGAffineTransform(scaleX: 3.0, y: 3.0)
                         }
                     }, completion: nil)
@@ -168,36 +139,28 @@ class ViewController: UIViewController {
         selectButton.isEnabled = false
     }
     
-       
     
-    
-}
-
-extension UIView {
-    
-    func clone() -> UIView {
+    func newBubbleCenter(tag: Int) -> CGPoint {
         
-        let view = UIView()
+        let mainOffset = superBubble.frame.size.width * 5
+        let countOfMainoOffsets = Int(screen.width / mainOffset)
+        var margin = screen.width - mainOffset * CGFloat(countOfMainoOffsets)
+        let littleOffSetY = CGFloat.random(in: -15...15)
+        let littleOffSetX = CGFloat.random(in: -10...10)
+        let numberOfWholeRows = tag / (countOfMainoOffsets + 1)
+        let rowPosition = tag - numberOfWholeRows * (countOfMainoOffsets + 1)
+        let restOfBubbles = basketOfBubbles.count % (countOfMainoOffsets + 1)
         
-        view.frame = self.frame
-        view.backgroundColor = self.backgroundColor
-        view.layer.cornerRadius = self.layer.cornerRadius
         
-        return view
-    }
-    
-    func clones(_ count: Int) -> [UIView] {
-        
-        var arrayClones = [UIView]()
-       
-        guard count > 0 else { return arrayClones }
-        
-        arrayClones.append(self.clone())
-        
-        for i in 1..<count {
-        arrayClones.append(arrayClones[i - 1].clone())
+        if tag > basketOfBubbles.count - restOfBubbles - 1 {
+            margin = screen.width - mainOffset * CGFloat(restOfBubbles - 1)
         }
         
-        return arrayClones
+        let newCenter = CGPoint(x: margin/2 + CGFloat(rowPosition) * mainOffset + littleOffSetX, y: screen.height - CGFloat(numberOfWholeRows) * 100 + littleOffSetY - 100)
+        
+        return newCenter
     }
+
 }
+
+
